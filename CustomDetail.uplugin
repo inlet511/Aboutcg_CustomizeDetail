@@ -18,6 +18,11 @@
 			"Name": "CustomDetail",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
+		},
+		{
+			"Name" : "ReflectionDataPanel",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
 		}
 	]
 }

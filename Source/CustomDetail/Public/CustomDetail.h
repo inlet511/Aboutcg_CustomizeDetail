@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
+#include "PropertyEditorDelegates.h"
 
 class FCustomDetailModule : public IModuleInterface
 {
@@ -12,4 +13,15 @@ public:
 	/** IModuleInterface implementation */
 	virtual void StartupModule() override;
 	virtual void ShutdownModule() override;
+
+private:
+	void RegisterPropertyTypeCustomizations();
+	void RegisterObjectCustomizations();
+
+	void RegisterCustomClassLayout(FName ClassName, FOnGetDetailCustomizationInstance DetailLayoutDelegate);
+	void RegisterCustomPropertyTypeLayout(FName PropertyTypeName, FOnGetPropertyTypeCustomizationInstance PropertyTypeLayoutDelegate);
+
+private:
+	TSet<FName> RegisteredClassNames;
+	TSet<FName> RegisteredPropertyTypes;
 };
