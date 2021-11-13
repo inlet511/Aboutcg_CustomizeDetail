@@ -7,6 +7,6 @@ class FMyDetailCustomization : public IDetailCustomization
 public:
 	virtual void CustomizeDetails(IDetailLayoutBuilder& DetailBuilder) override;
 
-	//สตภýปฏ
+	// Make an Instance 
 	static TSharedRef<IDetailCustomization> MakeInstance();
 };

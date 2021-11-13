@@ -28,4 +28,6 @@ private:
 
 private:
 	TSharedPtr<class FUICommandList> PluginCommands;
+
+	class UMyObject* DataObject;
 };

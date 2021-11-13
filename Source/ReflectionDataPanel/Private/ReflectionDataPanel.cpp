@@ -9,6 +9,7 @@
 #include "Widgets/Text/STextBlock.h"
 #include "Framework/MultiBox/MultiBoxBuilder.h"
 #include "CustomWidget.h"
+#include "MyObject.h"
 
 static const FName ReflectionDataPanelTabName("ReflectionDataPanel");
 
@@ -18,6 +19,10 @@ void FReflectionDataPanelModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
 	
+	DataObject = NewObject<UMyObject>();
+	if (DataObject)
+		DataObject->AddToRoot();
+
 	FReflectionDataPanelStyle::Initialize();
 	FReflectionDataPanelStyle::ReloadTextures();
 
@@ -53,6 +58,7 @@ void FReflectionDataPanelModule::StartupModule()
 
 void FReflectionDataPanelModule::ShutdownModule()
 {
+
 	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
 	// we call this function before unloading the module.
 	FReflectionDataPanelStyle::Shutdown();
@@ -60,6 +66,12 @@ void FReflectionDataPanelModule::ShutdownModule()
 	FReflectionDataPanelCommands::Unregister();
 
 	FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(ReflectionDataPanelTabName);
+
+	//if(DataObject)
+	//{
+	//	DataObject->ConditionalBeginDestroy();
+	//	DataObject = nullptr;
+	//}
 }
 
 TSharedRef<SDockTab> FReflectionDataPanelModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
@@ -79,6 +91,7 @@ TSharedRef<SDockTab> FReflectionDataPanelModule::OnSpawnPluginTab(const FSpawnTa
 			.VAlign(VAlign_Fill)
 			[
 				SNew(SCustomWidget)
+				.DataObj(DataObject)
 			]
 		];
 }
